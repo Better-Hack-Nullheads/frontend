@@ -4,7 +4,7 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import SignIn from "./pages/SignIn";
+import LoginPage from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import NotFound from "./pages/NotFound";
 import Doc from "./pages/Doc";
@@ -15,8 +15,7 @@ import Layout from "./layout";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      <Route path="/" element={<SignIn />} />
-      <Route path="/login" element={<SignIn />} />
+      <Route path="/" element={<LoginPage />} />
       <Route path="/signup" element={<SignUp />} />
       <Route element={<Layout />}>
         <Route path="/doc" element={<Doc />} />
