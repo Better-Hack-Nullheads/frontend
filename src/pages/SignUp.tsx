@@ -1,31 +1,31 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useNavigate, Link } from 'react-router-dom';
-import { Code, Mail, Lock } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { Input } from '../components/ui/input';
-import { Label } from '../components/ui/label';
-import { Button } from '../components/ui/button';
-import { RadioGroup, RadioGroupItem } from '../components/ui/radio-group';
-import { useAuth } from '../contexts/AuthContext';
-import { UserRole } from '../types';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { useNavigate, Link } from "react-router-dom";
+import { Code, Mail, Lock } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardHeader
+} from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { Button } from "../components/ui/button";
 
-export function RegisterPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [role, setRole] = useState<UserRole>('consumer');
+function SignUp() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
-  const { register } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert('Passwords do not match');
+      alert("Passwords do not match");
       return;
     }
-    await register(email, password, role);
-    navigate('/docs');
+    // TODO: Implement registration logic
+    console.log('Registration:', { email, password });
+    navigate("/docs");
   };
 
   return (
@@ -48,13 +48,11 @@ export function RegisterPage() {
             </div>
             <h1 className="text-3xl font-bold">AutoDoc</h1>
           </motion.div>
-          <p className="text-muted-foreground">Create your developer account</p>
+          <p className="text-muted-foreground">Sign up for API access</p>
         </div>
 
         <Card className="rounded-2xl shadow-lg">
           <CardHeader>
-            <CardTitle>Get Started</CardTitle>
-            <CardDescription>Sign up for API access</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -106,33 +104,17 @@ export function RegisterPage() {
                 </div>
               </div>
 
-              <div className="space-y-3">
-                <Label>Account Type</Label>
-                <RadioGroup value={role} onValueChange={(value) => setRole(value as UserRole)}>
-                  <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 transition-colors cursor-pointer">
-                    <RadioGroupItem value="consumer" id="consumer" />
-                    <Label htmlFor="consumer" className="flex-1 cursor-pointer">
-                      <div className="font-medium">Consumer</div>
-                      <div className="text-xs text-muted-foreground">Access to Docs and Playground</div>
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 transition-colors cursor-pointer">
-                    <RadioGroupItem value="admin" id="admin" />
-                    <Label htmlFor="admin" className="flex-1 cursor-pointer">
-                      <div className="font-medium">Admin</div>
-                      <div className="text-xs text-muted-foreground">Full access to all features</div>
-                    </Label>
-                  </div>
-                </RadioGroup>
-              </div>
 
               <Button type="submit" className="w-full h-11 text-base">
                 Create Account
               </Button>
 
               <div className="text-center text-sm text-muted-foreground">
-                Already have an account?{' '}
-                <Link to="/login" className="text-primary hover:underline font-medium">
+                Already have an account?{" "}
+                <Link
+                  to="/login"
+                  className="text-primary hover:underline font-medium"
+                >
                   Sign in
                 </Link>
               </div>
@@ -143,3 +125,5 @@ export function RegisterPage() {
     </div>
   );
 }
+
+export default SignUp;
